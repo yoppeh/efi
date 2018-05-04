@@ -4,11 +4,13 @@
 
 Assumes X64.
 
-Requires stdint.h (or equivalent).
+Requires <stdint.h>.
 
 You could build a "Hello World" application just by including <efi.h> and using the declarations there. Everything needed to reference the *Boot Services*, *Runtime Services*, *Configuration Table*, *System Table* and base types are included in <efi.h>. 
 
 Using protocols requires including the appropriate protocol header. The naming convention for the include filename is to use the name of the structure, as it appears in the UEFI specification, and naming the file using the first letter of each component of the structure name. For example, the *EfiGraphicsOutputProtocol* is defined in *protocol/efi-gop.h*.
+
+Please let me know of any mistakes. I'm also willing to add things as a favor. As it stands, I've only included components that I'm actually using.
 
 <dl>
 <dt><b>efi-bs.h</b></dt>
