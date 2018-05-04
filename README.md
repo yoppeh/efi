@@ -2,7 +2,7 @@
 UEFI headers.
 
 Assumes X64.
-Requires stddint.h (or equivalent) be included prior to efi.h.
+Requires stdint.h (or equivalent) be included prior to efi.h.
 
 efi-bs.h
 boot services

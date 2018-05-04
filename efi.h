@@ -7,6 +7,8 @@
 #ifndef __EFI_H
 #define __EFI_H
 
+#include <stdint.h>
+
 
 #define EFI_FALSE                   0
 #define EFI_TRUE                    1
