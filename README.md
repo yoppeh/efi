@@ -35,6 +35,10 @@ Please let me know of any mistakes. I'm also willing to add things as a favor. A
     <dd>file protocol</dd>
 <dt><b>protocol/efi-gop.h</b></dt>
     <dd>graphics output protocol</dd>
+<dt><b>protocol/efi-lidpp.h</b></dt>
+    <dd>loaded image device path protocol</dd>
+<dt><b>protocol/efi-lip.h</b></dt>
+    <dd>loaded image protocol</dd>
 <dt><b>protocol/efi-sfsp.h</b></dt>
     <dd>simple file system protocol</dd>
 <dt><b>protocol/efi-stip.h</b></dt>
