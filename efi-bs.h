@@ -31,6 +31,23 @@
 #define EFI_OPEN_PROTOCOL_BY_DRIVER             0x00000010
 #define EFI_OPEN_PROTOCOL_EXCLUSIVE             0x00000020
 
+#define EfiReservedMemoryType       0x00000000
+#define EfiLoaderCode               0x00000001
+#define EfiLoaderData               0x00000002
+#define EfiBootServicesCode         0x00000003
+#define EfiBootServicesData         0x00000004
+#define EfiRuntimeServicesCode      0x00000005
+#define EfiRuntimeServicesData      0x00000006
+#define EfiConventionalMemory       0x00000007
+#define EfiUnusableMemory           0x00000008
+#define EfiACPIReclaimMemory        0x00000009
+#define EfiACPIMemoryNVS            0x0000000a
+#define EfiMemoryMappedIO           0x0000000b
+#define EfiMemoryMappedIOPortSpace  0x0000000c
+#define EfiPalCode                  0x0000000d
+#define EfiPersistentMemory         0x0000000e
+#define EfiMaxMemoryType            0x0000000e
+
 
 typedef VOID (*EFI_EVENT_NOTIFY)(EFI_EVENT Event, VOID *Context);
 
@@ -46,25 +63,6 @@ typedef enum EFI_ALLOCATE_TYPE {
     AllocateAddress,
     MaxAllocateType
 } EFI_ALLOCATE_TYPE;
-
-typedef enum EFI_MEMORY_TYPE {
-    EfiReservedMemoryType,
-    EfiLoaderCode,
-    EfiLoaderData,
-    EfiBootServicesCode,
-    EfiBootServicesData,
-    EfiRuntimeServicesCode,
-    EfiRuntimeServicesData,
-    EfiConventionalMemory,
-    EfiUnusableMemory,
-    EfiACPIReclaimMemory,
-    EfiACPIMemoryNVS,
-    EfiMemoryMappedIO,
-    EfiMemoryMappedIOPortSpace,
-    EfiPalCode,
-    EfiPersistentMemory,
-    EfiMaxMemoryType
-} EFI_MEMORY_TYPE;
 
 typedef enum EFI_INTERFACE_TYPE {
     EFI_NATIVE_INTERFACE
@@ -86,10 +84,10 @@ typedef struct EFI_OPEN_PROTOCOL_INFORMATION_ENTRY {
 
 typedef EFI_STATUS (*EFI_RAISE_TPL)(EFI_TPL NewTpl);
 typedef EFI_STATUS (*EFI_RESTORE_TPL)(EFI_TPL OldTpl);
-typedef EFI_STATUS (*EFI_ALLOCATE_PAGES)(EFI_ALLOCATE_TYPE Type, EFI_MEMORY_TYPE MemoryType, UINTN Pages, EFI_PHYSICAL_ADDRESS *Memory);
+typedef EFI_STATUS (*EFI_ALLOCATE_PAGES)(EFI_ALLOCATE_TYPE Type, UINTN MemoryType, UINTN Pages, EFI_PHYSICAL_ADDRESS *Memory);
 typedef EFI_STATUS (*EFI_FREE_PAGES)(EFI_PHYSICAL_ADDRESS Memory, UINTN Pages);
 typedef EFI_STATUS (*EFI_GET_MEMORY_MAP)(UINTN *MemoryMapSize, EFI_MEMORY_DESCRIPTOR *MemoryMap, UINTN *MapKey, UINTN *DescriptorSize, UINT32 *DescriptorVersion);
-typedef EFI_STATUS (*EFI_ALLOCATE_POOL)(EFI_MEMORY_TYPE PoolType, UINTN Size, VOID **Buffer);
+typedef EFI_STATUS (*EFI_ALLOCATE_POOL)(UINTN PoolType, UINTN Size, VOID **Buffer);
 typedef EFI_STATUS (*EFI_FREE_POOL)(VOID *Buffer);
 typedef EFI_STATUS (*EFI_CREATE_EVENT)(UINT32 Type, EFI_TPL NotifyTpl, EFI_EVENT_NOTIFY NotifyFunction, VOID *NotifyContext, EFI_GUID *EventGroup, EFI_EVENT *Event);
 typedef EFI_STATUS (*EFI_SET_TIMER)(EFI_EVENT Event, EFI_TIMER_DELAY Type, UINT64 TriggerTime);

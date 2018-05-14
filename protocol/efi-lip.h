@@ -28,7 +28,7 @@ typedef struct EFI_LOADED_IMAGE_PROTOCOL {
     VOID                        *LoadOptions;
     VOID                        *ImageBase;
     UINT64                      ImageSize;
-    EFI_MEMORY_TYPE             ImageCodeType;
+    UINTN                       ImageCodeType;
     EFI_IMAGE_UNLOAD            UnLoad;
 } EFI_LOADED_IMAGE_PROTOCOL;
 
