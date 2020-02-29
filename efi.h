@@ -64,7 +64,7 @@
 
 
 typedef uint8_t     BOOLEAN;
-typedef int16_t     CHAR16;
+typedef uint16_t    CHAR16;
 typedef void        *EFI_EVENT;
 typedef void        *EFI_HANDLE;
 typedef uint64_t    EFI_LBA;
