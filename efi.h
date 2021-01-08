@@ -10,6 +10,12 @@
 #include <stdint.h>
 
 
+// EFIABI can be defined to __attribute__((ms_abi)) for example
+#ifndef EFIABI
+#define EFIABI
+#endif
+
+
 #define EFI_FALSE                   0
 #define EFI_TRUE                    1
 
