@@ -108,6 +108,11 @@ typedef struct EFI_TABLE_HEADER {
     UINT32  Reserved;
 } EFI_TABLE_HEADER;
 
+// EFIABI can be defined to __attribute__((ms_abi)) for example
+#ifndef EFIABI
+#  define EFIABI
+#endif
+
 
 #include <efi-st.h>
 
