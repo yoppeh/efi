@@ -153,12 +153,12 @@ typedef int8_t INT8;
 typedef int16_t INT16;
 typedef int32_t INT32;
 typedef int64_t INT64;
-typedef uint32_t EFI_IPV4_ADDRESS;
-typedef uint8_t EFI_IPV6_ADDRESS[16];
+typedef uint32_t EFI_IPv4_ADDRESS;
+typedef uint8_t EFI_IPv6_ADDRESS[16];
 typedef union {
     UINT32 Addr[4];
-    EFI_IPV4_ADDRESS v4;
-    EFI_IPV6_ADDRESS v6;
+    EFI_IPv4_ADDRESS v4;
+    EFI_IPv6_ADDRESS v6;
 } EFI_IP_ADDRESS;
 typedef uint8_t EFI_MAC_ADDRESS[32];
 typedef struct INT128 {
