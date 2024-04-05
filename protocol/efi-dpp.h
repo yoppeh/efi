@@ -1,30 +1,361 @@
-/*
- * efi-dpp.h
- *
- * UEFI device path protocol.
+/**
+ * @file efi-dpp.h
+ * @author Warren Mann (warren@nonvol.io)
+ * @brief UEFI Device Path Protocol.
+ * @version 0.2.0
+ * @date 2024-04-04
+ * @copyright Copyright (c) 2024
  */
 
-#ifndef __EFI_DPP_H
-#define __EFI_DPP_H
+#ifndef _EFI_DPP_H
+#define _EFI_DPP_H
 
 #include <efi.h>
 
+#define EFI_DEVICE_PATH_PROTOCOL_GUID {0x09576e91, 0x6d3f, 0x11d2, {0x8e, 0x39, 0x00, 0xa0, 0xc9, 0x69, 0x72, 0x3b}}
 
-#define EFI_DEVICE_PATH_PROTOCOL_GUID   {0x09576e91, 0x6d3f, 0x11d2, {0x8e, 0x39, 0x00, 0xa0, 0xc9, 0x69, 0x72, 0x3b}}
-
-#define EFI_HARDWARE_DEVICE_PATH                0x01
-#define EFI_ACPI_DEVICE_PATH                    0x02
-#define EFI_MESSAGING_DEVICE_PATH               0x03
-#define EFI_MEDIA_DEVICE_PATH                   0x04
+#define EFI_HARDWARE_DEVICE_PATH 0x01
+#define EFI_ACPI_DEVICE_PATH 0x02
+#define EFI_MESSAGING_DEVICE_PATH 0x03
+#define EFI_MEDIA_DEVICE_PATH 0x04
 #define EFI_BIOS_BOOT_SPECIFICATION_DEVICE_PATH 0x05
-#define EFI_END_OF_HARDWARE_DEVICE_PATH         0x7f
-
+#define EFI_END_OF_HARDWARE_DEVICE_PATH 0x7f
 
 typedef struct EFI_DEVICE_PATH_PROTOCOL {
-    UINT8   Type;
-    UINT8   SubType;
-    UINT8   Length[2];
+    UINT8 Type;
+    UINT8 SubType;
+    UINT16 Length;
 } EFI_DEVICE_PATH_PROTOCOL;
 
+typedef struct EFI_PCI_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 Function;
+    UINT8 Device;
+} EFI_PCI_DEVICE_PATH;
 
-#endif /* __EFI_DPP_H */
+typedef struct EFI_PCCARD_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 FunctionNumber;
+} EFI_PCCARD_DEVICE_PATH;
+
+typedef struct EFI_MEMORY_MAPPED_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    EFI_GUID VendorGUID;
+    UINT8 VendorData[];
+} EFI_MEMORY_MAPPED_DEVICE_PATH;
+
+typedef struct EFI_BMC_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 InterfaceType;
+    UINT64 BaseAddress;
+} EFI_BMC_DEVICE_PATH;
+
+typedef struct EFI_ADR_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT32 _ADR[];
+} EFI_ADR_DEVICE_PATH;
+
+typedef struct EFI_NVDIMM_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT32 NFITDeviceHandle;
+} EFI_NVDIMM_DEVICE_PATH;
+
+typedef struct EFI_ATAPI_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 PrimarySecondary;
+    UINT8 SlaveMaster;
+    UINT16 LUN;
+} EFI_ATAPI_DEVICE_PATH;
+
+typedef struct EFI_SCSI_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT16 TargetId;
+    UINT16 LUN;
+} EFI_SCSI_DEVICE_PATH;
+
+typedef struct EFI_FIBRECHANNEL_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT32 Reserved;
+    UINT64 WWN;
+    UINT64 LUN;
+} EFI_FIBRECHANNEL_DEVICE_PATH;
+
+typedef struct EFI_FIBRECHANNEL_EX_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT32 Reserved;
+    UINT64 WWN;
+    UINT64 LUN;
+} EFI_FIBRECHANNEL_EX_DEVICE_PATH;
+
+typedef struct EFI_USB_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 ParentPortNumber;
+    UINT8 Interface;
+} EFI_USB_DEVICE_PATH;
+
+typedef struct EFI_SATA_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT16 HBAPortNumber;
+    UINT16 PortMultiplierPortNumber;
+    UINT16 LUN;
+} EFI_SATA_DEVICE_PATH;
+
+typedef struct EFI_USB_WWID_DEVICE_PATH {    
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT16 InterfaceNumber;
+    UINT16 VendorId;
+    UINT16 ProductId;
+    UINT8 SerialNumber[];
+} EFI_USB_WWID_DEVICE_PATH;
+
+typedef struct EFI_DEVICE_LOGICAL_UNIT {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 LUN;
+} EFI_DEVICE_LOGICAL_UNIT;
+
+typedef struct EFI_USB_CLASS_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT16 VendorId;
+    UINT16 ProductId;
+    UINT8 DeviceClass;
+    UINT8 DeviceSubClass;
+    UINT8 DeviceProtocol;
+} EFI_USB_CLASS_DEVICE_PATH;
+
+typedef struct EFI_I2O_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT32 TId;
+} EFI_I2O_DEVICE_PATH;
+
+typedef struct EFI_MAC_ADDRESS_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    EFI_MAC_ADDRESS MACAddress;
+    UINT8 IfType;
+} EFI_MAC_ADDRESS_DEVICE_PATH;
+
+typedef struct EFI_IPV4_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    EFI_IPV4_ADDRESS LocalIpAddress;
+    EFI_IPV4_ADDRESS RemoteIpAddress;
+    UINT16 LocalPort;
+    UINT16 RemotePort;
+    UINT16 Protocol;
+    BOOLEAN StaticIpAddress;
+    EFI_IPV4_ADDRESS GatewayIpAddress;
+    EFI_IPV4_ADDRESS SubnetMask;
+} EFI_IPV4_DEVICE_PATH;
+
+typedef struct EFI_IPV6_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    EFI_IPV6_ADDRESS LocalIpAddress;
+    EFI_IPV6_ADDRESS RemoteIpAddress;
+    UINT16 LocalPort;
+    UINT16 RemotePort;
+    UINT16 Protocol;
+    BOOLEAN IPAddressOrigin;
+    UINT8 PrefixLength;
+    EFI_IPV6_ADDRESS GatewayIPAddress;
+} EFI_IPV6_DEVICE_PATH;
+
+typedef struct EFI_VLAN_DEVICE_PATH_NODE {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT16 VlanId;
+} EFI_VLAN_DEVICE_PATH_NODE;
+
+typedef struct EFI_INFINIBAND_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT32 ResourceFlags;
+    UINT8 PortGID[16];
+    UINT64 ServiceId;
+    UINT64 TargetPortId;
+    UINT64 DeviceId;
+} EFI_INFINIBAND_DEVICE_PATH;
+
+typedef struct EFI_UART_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT32 Reserved;
+    UINT64 BaudRate;
+    UINT8 DataBits;
+    UINT8 Parity;
+    UINT8 StopBits;
+} EFI_UART_DEVICE_PATH;
+
+typedef struct EFI_VENDOR_DEFINED_MESSAGING_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    EFI_GUID VendorGUID;
+    UINT8 VendorDefinedData[];
+} EFI_VENDOR_DEFINED_MESSAGING_DEVICE_PATH;
+
+typedef struct EFI_UART_FLOW_CONTROL_MESSAGING_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    EFI_GUID VendorGUID;
+    UINT32 FlowControlMap;
+} EFI_UART_FLOW_CONTROL_MESSAGING_PATH;
+
+typedef struct EFI_SAS_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    EFI_GUID VendorGUID;
+    UINT32 Reserved;
+    UINT64 SasAddress;
+    UINT64 LUN;
+    UINT16 DeviceTopologyInfo;
+    UINT16 RelativeTargetPort;
+} EFI_SAS_DEVICE_PATH;
+
+typedef struct EFI_SAS_EXTENDED_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    EFI_GUID VendorGUID;
+    UINT64 SasAddress;
+    UINT64 LUN;
+    UINT16 DeviceTopologyInfo;
+    UINT16 RelativeTargetPort;
+} EFI_SAS_EXTENDED_DEVICE_PATH;
+
+typedef struct EFI_ISCSI_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT16 Protocol;
+    UINT16 LoginOption;
+    UINT64 LUN;
+    UINT16 TargetPortalGroupTag;
+    UINT8 TargetName[];
+} EFI_ISCSI_DEVICE_PATH;
+
+typedef struct EFI_NVM_EXPRESS_NAMESPACE_MESSAGING_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT32 NamespaceId;
+    UINT64 IEEEExtendedUniqueIdentifier;
+} EFI_NVM_EXPRESS_NAMESPACE_DEVICE_MESSAGING_PATH;
+
+typedef struct EFI_URI_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    CHAR8 Uri[];
+} EFI_URI_DEVICE_PATH;
+
+typedef struct EFI_UFS_DEVICE_MESSAGING_DEVICEPATH_NODE {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 TargetId;
+    UINT8 LUN;
+} EFI_UFS_DEVICE_MESSAGING_DEVICEPATH_NODE;
+
+typedef struct EFI_SD_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 SlotNumber;
+} EFI_SD_DEVICE_PATH;
+
+typedef struct EFI_BLUETOOTH_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 DeviceAddress[6];
+} EFI_BLUETOOTH_DEVICE_PATH;
+
+typedef struct EFI_WIRELESS_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 SSID[32];
+} EFI_WIRELESS_DEVICE_PATH;
+
+typedef struct EFI_EMMC_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 SlotNumber;
+} EFI_EMMC_DEVICE_PATH;
+
+typedef struct EFI_BLUETOOTH_LE_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 DeviceAddress[6];
+    UINT8 AddressType;
+} EFI_BLUETOOTH_LE_DEVICE_PATH;
+
+typedef struct EFI_DNS_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    BOOLEAN IsIPv6;
+    EFI_IP_ADDRESS DNSServerAddress[];
+} EFI_DNS_DEVICE_PATH;
+
+typedef struct EFI_NVDIMM_NAMESPACE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    EFI_GUID UUID;
+} EFI_NVDIMM_NAMESPACE_PATH;
+
+typedef struct EFI_REST_SERVICE_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 RESTService;
+    UINT8 AccessMode;
+} EFI_REST_SERVICE_DEVICE_PATH;
+
+typedef struct EFI_VENDOR_SPECIFIC_REST_SERVICE_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 RESTService;
+    UINT8 AccessMode;
+    EFI_GUID VendorGUID;
+    UINT8 VendorDefinedData[];
+} EFI_VENDOR_SPECIFIC_REST_SERVICE_DEVICE_PATH;
+
+typedef struct EFI_NVMEOF_NAMESPACE_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT8 NIDT;
+    UINT8 NID[16];
+    UINT8 SubsystemNQN[];
+} EFI_NVMEOF_NAMESPACE_DEVICE_PATH;
+
+typedef struct EFI_HARD_DRIVE_MEDIA_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT32 PartitionNumber;
+    UINT64 PartitionStart;
+    UINT64 PartitionSize;
+    UINT8 Signature[16];
+    UINT8 PartitionFormat;
+    UINT8 SignatureType;
+} EFI_HARD_DRIVE_MEDIA_DEVICE_PATH;
+
+typedef struct EFI_CDROM_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT32 BootEntry;
+    UINT64 PartitionStart;
+    UINT64 PartitionSize;
+} EFI_CDROM_DEVICE_PATH;
+
+typedef struct EFI_VENDOR_DEFINED_MEDIA_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    EFI_GUID VendorGUID;
+    UINT8 VendorDefinedData[];
+} EFI_VENDOR_DEFINED_MEDIA_DEVICE_PATH;
+
+typedef struct EFI_FILE_PATH_MEDIA_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    CHAR8 PathName[];
+} EFI_FILE_PATH_MEDIA_DEVICE_PATH;
+
+typedef struct EFI_MEDIA_PROTOCOL_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    EFI_GUID ProtocolGUID;
+} EFI_MEDIA_PROTOCOL_DEVICE_PATH;
+
+typedef struct EFI_PIWG_FW_FILE_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+} EFI_PIWG_FW_FILE_DEVICE_PATH;
+
+typedef struct EFI_PIWG_FW_VOLUME_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+} EFI_PIWG_FW_VOLUME_DEVICE_PATH;
+
+typedef struct EFI_RELATIVE_OFFSET_RANGE_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT32 Reserved;
+    UINT64 StartingOffset;
+    UINT64 EndingOffset;
+} EFI_RELATIVE_OFFSET_RANGE_DEVICE_PATH;
+
+typedef struct EFI_RAM_DISK_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT64 StartingAddr;
+    UINT64 EndingAddr;
+    EFI_GUID DiskTypeGUID;
+    UINT16 DiskInstance;
+} EFI_RAM_DISK_DEVICE_PATH;
+
+typedef struct EFI_BIOSBOOT_SPECIFICATION_DEVICE_PATH {
+    EFI_DEVICE_PATH_PROTOCOL Header;
+    UINT16 DeviceType;
+    UINT16 StatusFlag;
+    UINT8 DescriptionString[];
+} EFI_BIOSBOOT_SPECIFICATION_DEVICE_PATH;
+
+#endif // _EFI_DPP_H
