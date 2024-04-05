@@ -153,14 +153,6 @@ typedef int8_t INT8;
 typedef int16_t INT16;
 typedef int32_t INT32;
 typedef int64_t INT64;
-typedef uint32_t EFI_IPv4_ADDRESS;
-typedef uint8_t EFI_IPv6_ADDRESS[16];
-typedef union {
-    UINT32 Addr[4];
-    EFI_IPv4_ADDRESS v4;
-    EFI_IPv6_ADDRESS v6;
-} EFI_IP_ADDRESS;
-typedef uint8_t EFI_MAC_ADDRESS[32];
 typedef struct INT128 {
     int64_t lo;
     int64_t hi;
@@ -184,6 +176,14 @@ typedef uint64_t UINTN;
 #elif EFI_WORD_SIZE == 128
 typedef INT128 UINTN;
 #endif
+typedef uint32_t EFI_IPv4_ADDRESS;
+typedef uint8_t EFI_IPv6_ADDRESS[16];
+typedef union {
+    UINT32 Addr[4];
+    EFI_IPv4_ADDRESS v4;
+    EFI_IPv6_ADDRESS v6;
+} EFI_IP_ADDRESS;
+typedef uint8_t EFI_MAC_ADDRESS[32];
 
 typedef struct EFI_GUID {
     UINT32 Data1;
