@@ -137,6 +137,8 @@
 #define EFI_MEMORY_ISA_VALID 0x4000000000000000
 #define EFI_MEMORY_ISA_MASK 0x0ffff00000000000
 
+#define EFI_ERROR(Status) (((EFI_STATUS)(Status)) & EFI_ERR_MASK)
+
 typedef void VOID;
 typedef uint8_t BOOLEAN;
 typedef uint8_t CHAR8;
